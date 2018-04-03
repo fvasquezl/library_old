@@ -16,7 +16,7 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $areas = Area::paginate();
+        $areas = Area::orderby('level','asc')->paginate();
         return view('admin.areas.index', compact('areas'));
 
     }
@@ -30,9 +30,18 @@ class AreaController extends Controller
     {
         $areas = Area::all();
         $parents = Area::getParents();
-        return $parents;
         return view('admin.areas.create', compact('areas','parents'));
     }
+
+    public function getLevelParents(Request $request, $id)
+    {
+        if($request->ajax()){
+            $levelParents = Area::getLevelParents($id);
+            return response()->json($levelParents);
+        }
+        return Area::getLevelParents($id);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,10 +51,11 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'code' => 'required|unique:areas|max:10',
-            'name' => 'required',
-            'access_level_id' => 'required',
+            'name' => 'required|unique:areas',
+            'level' => 'required',
             'parent_id' => 'required',
         ]);
         Area::create($request->all());
@@ -62,7 +72,7 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
-        //
+
     }
 
     /**
@@ -73,7 +83,7 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
-        //
+        return view('admin.areas.edit', compact('area'));
     }
 
     /**

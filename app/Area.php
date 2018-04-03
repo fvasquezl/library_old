@@ -41,4 +41,14 @@ class Area extends Model
         $parents = Area::select('id','name')->get();
        return $parents;
     }
+
+    public static function getLevelParents($id)
+    {
+        return  Area::where(function($q) use ($id){
+            $q->where('level','<',$id);
+            if($id > 1){
+                $q->where('level','!=',0);
+            }
+        })->get();
+    }
 }
