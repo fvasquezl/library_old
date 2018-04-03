@@ -12,9 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <script src="{{ asset('js/navbar.js') }}" defer></script>
-    @stack('scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -23,6 +21,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div id="app">
@@ -101,9 +100,11 @@
     </nav>
 
     <main class="py-4">
-        @include('layouts.partials.success');
+        @include('layouts.partials.alerts');
         @yield('content')
     </main>
 </div>
+
+@stack('scripts')
 </body>
 </html>

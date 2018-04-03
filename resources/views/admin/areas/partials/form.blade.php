@@ -1,59 +1,70 @@
 {{ csrf_field() }}
-<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
-    <label for="code" class="control-label">Codigo </label>
-    <input id="code"
-           type="text"
-           class="form-control"
-           name="code"
-           value="{{ $area->code or $old('code') }}"
-           required autofocus>
 
-    @if ($errors->has('code'))
-        <span class="help-block">
-            <strong>{{ $errors->first('code') }}</strong>
-        </span>
-    @endif
-</div>
-
-<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-    <label for="name" class="control-label">Nombre</label>
+<div class="form-group">
+    <label for="name" class="col-form-label text-md-right">{{ __('Nombre') }}</label>
     <input id="name"
            type="text"
-           class="form-control"
+           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
            name="name"
-           value="{{$area->name or old('name') }}"
+           value="{{ $area->name or old('name') }}"
            required autofocus>
 
     @if ($errors->has('name'))
-        <span class="help-block">
+        <span class="invalid-feedback">
             <strong>{{ $errors->first('name') }}</strong>
         </span>
     @endif
 </div>
 
-<div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
-    <label for="level" class="control-label">Nivel de Acceso</label>
+<div class="form-group">
+    <label for="code" class="col-form-label text-md-right">{{ __('Codigo') }}</label>
+    <input id="code"
+           type="text"
+           class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}"
+           name="code"
+           value="{{ $area->code or old('code') }}"
+           required autofocus>
+
+    @if ($errors->has('code'))
+        <span class="invalid-feedback">
+            <strong>{{ $errors->first('code') }}</strong>
+        </span>
+    @endif
+</div>
+
+
+<div class="form-group">
+    <label for="level" class="col-form-label text-md-right">{{ __('Nivel de Acceso') }}</label>
     <input id="level"
            type="number"
-           class="form-control"
+           class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
            name="level"
            min="1"
            step="1"
-           value="{{ $area->level or  old('level') }}"
+           value="{{ $area->level or old('level') }}"
            required autofocus>
 
     @if ($errors->has('level'))
-        <span class="help-block">
+        <span class="invalid-feedback">
             <strong>{{ $errors->first('level') }}</strong>
         </span>
     @endif
 </div>
 
 
-<div class="form-group {{ $errors->has('parent_id') ? ' has-error' : '' }}">
-    <label for="parent_id">Area a la que reporta</label>
-    <select name="parent_id" id="parent_id" class="form-control">
-        <option value="{{ $area->parent_id or  old('parent_id') }}">{{ $area->name}}</option>
+
+<div class="form-group">
+    <label for="parent_id" class="col-form-label text-md-right">{{ __('Area a la que reporta') }}</label>
+    <select name="parent_id" id="parent_id" class="form-control {{ $errors->has('parent_id') ? ' is-invalid' : '' }}">
+        @foreach ($parents as $parent)
+            <option value="{{$area->parent_id or old('parent_id')}}" {{ old('parent_id',$parent->id) == $area->parent_id ?'selected':''}}>{{ $parent->name}}</option>
+        @endforeach
     </select>
-    {!! $errors->first('parent_id','<span class="help-block">:message</span>') !!}
+
+    @if ($errors->has('parent_id'))
+        <span class="invalid-feedback">
+            <strong>{{ $errors->first('parent_id') }}</strong>
+        </span>
+    @endif
 </div>
+

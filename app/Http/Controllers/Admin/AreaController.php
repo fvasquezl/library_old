@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Area;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class AreaController extends Controller
 {
@@ -17,7 +16,8 @@ class AreaController extends Controller
     public function index()
     {
         $areas = Area::orderby('level','asc')->paginate();
-        return view('admin.areas.index', compact('areas'));
+        $parents = [];
+        return view('admin.areas.index', compact('areas', 'parents'));
 
     }
 
@@ -28,9 +28,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $areas = Area::all();
-        $parents = Area::getParents();
-        return view('admin.areas.create', compact('areas','parents'));
+        return view('admin.areas.create');
     }
 
     public function getLevelParents(Request $request, $id)
@@ -51,17 +49,12 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request,[
-            'code' => 'required|unique:areas|max:10',
-            'name' => 'required|unique:areas',
-            'level' => 'required',
-            'parent_id' => 'required',
+            'name' => 'required|unique:areas|min:3',
         ]);
-        Area::create($request->all());
-        Session::flash('success', 'El area se ha creado correctamente!');
-        return redirect()->route('areas.index');
+       $area = Area::create($request->all());
 
+       return redirect()->route('areas.edit' ,$area);
     }
 
     /**
@@ -83,7 +76,8 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
-        return view('admin.areas.edit', compact('area'));
+        $parents= Area::getLevelParents($area->level);
+        return view('admin.areas.edit', compact('area', 'parents'));
     }
 
     /**
@@ -95,17 +89,32 @@ class AreaController extends Controller
      */
     public function update(Request $request, Area $area)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|unique:areas|min:3',
+            'code' => 'required|unique:areas',
+            'level' => 'required|min:1',
+            'parent_id' => 'required'
+        ]);
+        $area->update($request->all());
+
+        $request->session()->flash('success','El area ha sido guradada correctamente');
+
+        return redirect()->route('areas.edit' ,$area);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Area  $area
+     * @param  \App\Area $area
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Area $area)
     {
-        //
+        if($area->users()->count()){
+            return redirect()->back()->with('errors', 'Existen usuarios en esta area, eliminelos o muevalos a otra area');
+        }
+        $area->delete();
+        return redirect()->back()->with('success', 'El area '. $area->name.' ha sido eliminada');
     }
 }

@@ -21,6 +21,13 @@ class Area extends Model
             ->withTimestamps();
     }
 
+    public static function create(array $attributes =[])
+    {
+        $attributes['level'] = 0;
+        $area = static::query()->create($attributes);
+        return $area;
+    }
+
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;

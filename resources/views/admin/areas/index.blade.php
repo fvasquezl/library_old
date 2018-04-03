@@ -7,14 +7,17 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="float-left">Areas</h3>
-                        <a href="{{route('areas.create')}}" class="btn btn-primary float-right">Create Area</a>
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                            Crear area nueva <i class="fa fa-plus"></i>
+                        </button>
                     </div>
 
                     <table class="table text-center">
                         <thead>
                         <tr>
-                            <th>Codigo</th>
+                            <th>Id</th>
                             <th>Nombre</th>
+                            <th>Codigo</th>
                             <th>Nivel Acceso</th>
                             <th>Reporta a:</th>
                             <th>Acciones</th>
@@ -24,14 +27,24 @@
                         @foreach ($areas as $area)
                             @if(!$area->parent_id==0 && !$area->level==0)
                             <tr>
-                                <td>{{$area->code}}</td>
+                                <td>{{$area->id}}</td>
                                 <td class="text-left"><a href="{{route('areas.show',$area->url)}}">{{$area->name}}</a></td>
+                                <td>{{$area->code}}</td>
                                 <td>{{$area->level}}</td>
                                 <td>{{($area->parent_id === 1) ? '--': $area->parent->code }}</td>
                                 <td class="text-left">
                                     <a href="{{route('areas.edit',$area)}}" class="btn btn-success btn-sm">Editar</a>
                                     @if($area->level !=1)
-                                        <a href="{{route('areas.destroy',$area)}}" class="btn btn-danger btn-sm">Eliminar</a>
+                                        <form action="{{route('areas.destroy', $area)}}"
+                                              method="POST"
+                                              style="display: inline">
+                                            @csrf {{method_field('DELETE')}}
+                                            <button class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Estas seguro de querer eliminar esta area?')"
+                                            >Eliminar<i class="fa fa-times"></i></button>
+                                        </form>
+
+                                        {{--<a href="{{route('areas.destroy',$area)}}" class="btn btn-danger btn-sm">Eliminar</a>--}}
                                     @endif
                                 </td>
                             </tr>
@@ -43,4 +56,6 @@
                 </div>
             </div>
         </div>
+    </div>
+    @include('admin.areas.partials.modal')
 @stop

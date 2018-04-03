@@ -14,7 +14,7 @@
                             <form method="POST" action="{{ route('areas.store') }}">
                                 {{ csrf_field() }}
 
-                                @include('admin.areas.partials.form')
+
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         Registrar Area
