@@ -25,16 +25,15 @@
                         </thead>
                         <tbody>
                         @foreach ($areas as $area)
-                            @if(!$area->parent_id==0 && !$area->level==0)
                             <tr>
                                 <td>{{$area->id}}</td>
                                 <td class="text-left"><a href="{{route('areas.show',$area->url)}}">{{$area->name}}</a></td>
                                 <td>{{$area->code}}</td>
-                                <td>{{$area->level}}</td>
-                                <td>{{($area->parent_id === 1) ? '--': $area->parent->code }}</td>
+                                <td>{{($area->level) ? $area->level:'--'}}</td>
+                                <td>{{($area->parent_id) ? $area->parent->code : '--'}}</td>
                                 <td class="text-left">
+                                    @if($area->level)
                                     <a href="{{route('areas.edit',$area)}}" class="btn btn-success btn-sm">Editar</a>
-                                    @if($area->level !=1)
                                         <form action="{{route('areas.destroy', $area)}}"
                                               method="POST"
                                               style="display: inline">
@@ -43,12 +42,9 @@
                                                     onclick="return confirm('Estas seguro de querer eliminar esta area?')"
                                             >Eliminar<i class="fa fa-times"></i></button>
                                         </form>
-
-                                        {{--<a href="{{route('areas.destroy',$area)}}" class="btn btn-danger btn-sm">Eliminar</a>--}}
                                     @endif
                                 </td>
                             </tr>
-                            @endif
                         @endforeach
                         </tbody>
                     </table>

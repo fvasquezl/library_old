@@ -23,7 +23,7 @@ class Area extends Model
 
     public static function create(array $attributes =[])
     {
-        $attributes['level'] = 0;
+        $attributes['level'] = -1;
         $area = static::query()->create($attributes);
         return $area;
     }
@@ -52,7 +52,14 @@ class Area extends Model
     public static function getLevelParents($id)
     {
         return  Area::where(function($q) use ($id){
-            $q->where('level','<',$id);
+
+            $q->where('level','<',$id)->where('parent_id','!=',null);
+            if($id == 0){
+                $q->where('level','>',0);
+            }
+            if($id == 1){
+                $q->where('level','=',0);
+            }
             if($id > 1){
                 $q->where('level','!=',0);
             }

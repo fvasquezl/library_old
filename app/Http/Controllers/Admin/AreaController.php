@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Area;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateAreasRequest;
 use Illuminate\Http\Request;
 
 class AreaController extends Controller
@@ -15,7 +16,10 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $areas = Area::orderby('level','asc')->paginate();
+        $areas = Area::orderby('level','asc')
+            ->where('level','>=',0)
+            ->whereNotNull('parent_id')
+            ->paginate();
         $parents = [];
         return view('admin.areas.index', compact('areas', 'parents'));
 
@@ -87,15 +91,10 @@ class AreaController extends Controller
      * @param  \App\Area  $area
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Area $area)
+    public function update(UpdateAreasRequest $request, Area $area)
     {
-        $this->validate($request,[
-            'name' => 'required|unique:areas|min:3',
-            'code' => 'required|unique:areas',
-            'level' => 'required|min:1',
-            'parent_id' => 'required'
-        ]);
-        $area->update($request->all());
+
+        $area->update($request->validated());
 
         $request->session()->flash('success','El area ha sido guradada correctamente');
 

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="float-left">Editando Area <b>"{{$area->name}}"</b></h3>
+                        <h3 class="float-left"> Area <b>"{{$area->name}}"</b></h3>
                     </div>
 
                     <div class="card-body">
@@ -16,7 +16,7 @@
                                 @include('admin.areas.partials.form')
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
-                                        Editar Area
+                                        Guardar informacion
                                     </button>
                                     <a href="{{route('areas.index')}}" class="btn btn-danger">Retornar</a>
                                 </div>
@@ -31,4 +31,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/dropdown.js') }}" defer></script>
+    <script>
+        alert( $('.card-header').next())
+    </script>
 @endpush

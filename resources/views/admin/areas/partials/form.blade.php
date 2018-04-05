@@ -51,13 +51,11 @@
     @endif
 </div>
 
-
-
 <div class="form-group">
     <label for="parent_id" class="col-form-label text-md-right">{{ __('Area a la que reporta') }}</label>
     <select name="parent_id" id="parent_id" class="form-control {{ $errors->has('parent_id') ? ' is-invalid' : '' }}">
         @foreach ($parents as $parent)
-            <option value="{{$area->parent_id or old('parent_id')}}" {{ old('parent_id',$parent->id) == $area->parent_id ?'selected':''}}>{{ $parent->name}}</option>
+            <option value="{{$area->parent_id}}" {{ old('parent_id',$parent->id) == $area->parent_id ?'selected':''}}>{{ $parent->name}}</option>
         @endforeach
     </select>
 
