@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateAreasRequest;
 use Illuminate\Http\Request;
 
-class AreaController extends Controller
+class AreasController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -53,7 +53,7 @@
                                 <li><a class="dropdown-item dropdown-toggle" href="#">Empresa</a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="{{route('areas.index')}}">Areas</a></li>
-                                        <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                        <li><a class="dropdown-item" href="{{route('users.index')}}">Usuarios</a></li>
                                     </ul>
                                 </li>
                                 <li><a class="dropdown-item dropdown-toggle" href="#">Documentos</a>

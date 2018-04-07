@@ -50,4 +50,9 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function getAreaName($user)
+    {
+        return  $user->areas->pluck('code')->implode(', ');
+    }
 }
