@@ -9,7 +9,7 @@
                         <h3 class="float-left">Usuarios</h3>
                         <button type="button" class="btn btn-primary float-right" data-toggle="modal"
                                 data-target="#myModal">
-                            Crear usuario <i class="fa fa-user"></i>
+                            Crear usuario
                         </button>
                     </div>
 

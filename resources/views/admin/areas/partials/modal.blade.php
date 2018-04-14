@@ -18,7 +18,7 @@
                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                    name="name"
                                    value="{{ old('name') }}"
-                                   required autofocus>
+                                   autofocus>
 
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">

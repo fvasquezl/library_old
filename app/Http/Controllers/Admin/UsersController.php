@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Area;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -37,7 +38,11 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $this->validate($request,[
+          'name' => 'required|min:3'
+       ]);
+        $user = User::create($request->all());
+        return redirect()->route('users.edit' ,$user);
     }
 
     /**
@@ -54,12 +59,13 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $areas = Area::all();
+        return view('admin.users.edit', compact('user','areas'));
     }
 
     /**

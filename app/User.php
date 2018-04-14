@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name','url','email','password','position'
     ];
 
     /**
@@ -26,6 +27,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'url';
+    }
+
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+        $this->attributes['url'] = Str::slug($name);
+    }
 
 
     public function roles()
