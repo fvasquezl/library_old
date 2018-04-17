@@ -17,21 +17,8 @@ trait TestHelpers
     protected $adminUser;
     protected $area;
     protected $user;
+    protected $areas;
 
-    /**
-     * @param array $attr
-     * @return mixed
-     */
-    public function adminUser(array $attr = [])
-    {
-        if ($this->adminUser) {
-            return $this->adminUser;
-        }
-        $adminArea = $this->createArea(['level' => 1, 'parent_id' => 1]);
-        $this->adminUser = factory(User::class)->create($attr);
-        $this->adminUser->areas()->attach($adminArea);
-        return $this->adminUser;
-    }
 
     public function createUser(array $attr=[])
     {
@@ -42,30 +29,30 @@ trait TestHelpers
         return $this->user;
     }
 
-    public function createArea(array $attr = [])
-    {
-        if ($this->area) {
-            return $this->area;
-        }
-        return $this->area = factory(Area::class)->create($attr);
-    }
+//    public function createArea(array $attr = [])
+//    {
+//        if ($this->area) {
+//            return $this->area;
+//        }
+//        return $this->area = factory(Area::class)->create($attr);
+//    }
 
     public function createAreasStructure()
     {
-        $this->createArea([
-            'name'=> 'Raiz',
-            'level' =>0,
-            'parent_id' =>0
-        ]);
-        $this->createArea([
-            'name'=> 'Direccion General',
-            'level' =>1,
-            'parent_id' =>0
-        ]);
-        $this->createArea([ 'name'=> 'Gerencia de Servicios de Salud',
-            'level' =>2,
-            'parent_id' =>2
-        ]);
+        factory(Area::class)->create(['name'=> 'Raiz', 'level' =>0, 'parent_id' =>0]);
+        factory(Area::class)->create(['name'=> 'Direccion General','level' =>1,'parent_id' =>1]);
+        factory(Area::class)->create(['name'=> 'Gerencia de Servicios de Salud','level' =>2,'parent_id' =>2]);
+    }
 
+    public function adminUser()
+    {
+        if ($this->adminUser) {
+            return $this->adminUser;
+        }
+        $this->createAreasStructure();
+        $direction = Area::where('level',1)->get();
+        $this->adminUser = factory(User::class)->create();
+        $this->adminUser->areas()->attach($direction);
+        return $this->adminUser;
     }
 }

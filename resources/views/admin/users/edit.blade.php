@@ -31,7 +31,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/dropdown.js') }}" defer></script>
-    <script>
-        alert( $('.card-header').next())
-    </script>
+    {{--<script>--}}
+        {{--alert( $('.card-header').next())--}}
+    {{--</script>--}}
 @endpush

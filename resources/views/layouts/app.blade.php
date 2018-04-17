@@ -25,7 +25,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -42,7 +42,28 @@
                         <li><a class="nav-link" href="#">Lista de documentos</a></li>
                     @else
                         @if(auth()->user()->haslevel(1))
-                        <li><a class="nav-link" href="#">Agregar documento</a></li>
+                        <li><a class="nav-link" href="#"><i class="fa fa-book fa-lg"></i> Agregar documento</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-unlock-alt fa-lg"></i> Administración
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('areas.index')}}">Areas</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{route('users.index')}}">Usuarios</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-book fa-lg"></i> Documentos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('areas.index')}}">Categorias</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{route('users.index')}}">Other</a>
+                                </div>
+                            </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="https://bootstrapthemes.co"
                                id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -100,7 +121,7 @@
     </nav>
 
     <main class="py-4">
-        @include('layouts.partials.alerts');
+        @include('layouts.partials.alerts')
         @yield('content')
     </main>
 </div>

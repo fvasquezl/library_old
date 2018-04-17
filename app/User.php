@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -39,6 +40,10 @@ class User extends Authenticatable
         $this->attributes['url'] = Str::slug($name);
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
 
     public function roles()
     {
@@ -50,7 +55,7 @@ class User extends Authenticatable
     public function areas()
     {
         return $this
-            ->belongsToMany(Area::class)
+            ->belongsToMany(Area::class)->withPivot('area_id', 'user_id')
             ->withTimestamps();
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Area;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUsersRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -64,20 +65,24 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $areas = Area::all();
+        $areas = Area::where('name','!=','Raiz')->get();
         return view('admin.users.edit', compact('user','areas'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUsersRequest $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUsersRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+        $user->areas()->sync($request->get('area_id'));
+        $request->session()->flash('success','El usuario ha sido guardado correctamente');
+
+        return redirect()->route('users.edit' ,$user);
     }
 
     /**

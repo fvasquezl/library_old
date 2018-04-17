@@ -2,6 +2,8 @@
 
 namespace Tests\Browser;
 
+use App\Area;
+use App\User;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -15,7 +17,7 @@ class UsersTest extends DuskTestCase
      */
     public function test_admin_can_create_user()
     {
-        // $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser())
                 ->visitRoute('users.index');
@@ -62,30 +64,34 @@ class UsersTest extends DuskTestCase
     /**
      * @throws \Throwable
      */
-    public function test_admin_complete_creation_user()
+    public function test_admin_can_edit_user()
     {
-         $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $user = $this->createUser(['name'=>'Faustino Vasquez']);
-        $this->createAreasStructure();
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $this->browse(function (Browser $browser) use($user){
             $browser->loginAs($this->adminUser())
-                ->visitRoute('users.edit',$user);
-//                ->type('email', 'fvasquez@localhost.com')
-//                ->type('password','123123')
-//                ->type('postition', 'Empleado')
-//                ->select('area', 'Gerencia de Servicios de Salud')
-//                ->press('Guardar cambios')
-//                ->pause(1000)
-//                ->assertPathIs('/admin/users/faustino-vasquez/edit')
-//                ->assertSeeIn('test','El usuario ha sido creado correctamente');
+                ->visitRoute('users.edit',$user)
+                ->pause(1000)
+                ->assertInputValue('name','Faustino Vasquez')
+                ->type('email', 'fvasquez@localhost.com')
+                ->type('password','123123')
+                ->type('password_confirmation','123123')
+                ->type('position', 'Empleado')
+                ->select('area_id', 3)
+                ->press('Guardar informacion')
+                ->assertPathIs('/admin/users/faustino-vasquez/edit')
+                ->assertSeeIn('.alert','El usuario ha sido guardado correctamente');
         });
 
-//        $this->assertDatabaseHas('users', [
-//            'name' => 'Faustino Vasquez',
-//            'url' => 'faustino-vasquez',
-//            'email' => 'fvasquez@localhost.com'
-//        ]);
+        $this->assertDatabaseHas('users', [
+            'name' => 'Faustino Vasquez',
+            'url' => 'faustino-vasquez'
+        ]);
+        $this->assertDatabaseHas('area_user',[
+            'area_id' => 3,
+            'user_id' => 1
+        ]);
     }
 
 }

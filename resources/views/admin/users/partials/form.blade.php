@@ -6,7 +6,7 @@
            type="text"
            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
            name="name"
-           value="{{ $area->name or old('name') }}"
+           value="{{ $user->name or old('name') }}"
            autofocus>
 
     @if ($errors->has('name'))
@@ -22,7 +22,7 @@
            type="email"
            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
            name="email"
-           value="{{ $area->email or old('email') }}"
+           value="{{ $user->email or old('email') }}"
            autofocus>
 
     @if ($errors->has('email'))
@@ -35,33 +35,33 @@
 
 <div class="form-group">
     <label for="password" class="col-form-label text-md-right">{{ __('Password') }}</label>
-        <input id="password"
-               type="password"
-               class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-               name="password">
+    <input id="password"
+           type="password"
+           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+           name="password">
 
-        @if ($errors->has('password'))
-            <span class="invalid-feedback">
+    @if ($errors->has('password'))
+        <span class="invalid-feedback">
                 <strong>{{ $errors->first('password') }}</strong>
             </span>
-        @endif
+    @endif
 </div>
 
 <div class="form-group ">
-    <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-        <input id="password-confirm"
-               type="password"
-               class="form-control"
-               name="password_confirmation">
+    <label for="password-confirm" class="col-form-label text-md-right">{{ __('Confirme el Password') }}</label>
+    <input id="password-confirm"
+           type="password"
+           class="form-control"
+           name="password_confirmation">
 </div>
 
 <div class="form-group">
-    <label for="position" class="col-form-label text-md-right">{{ __('Posicion') }}</label>
+    <label for="position" class="col-form-label text-md-right">{{ __('Puesto') }}</label>
     <input id="position"
            type="text"
            class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}"
            name="position"
-           value="{{ $area->position or old('position') }}"
+           value="{{ $user->position or old('position') }}"
            autofocus>
 
     @if ($errors->has('position'))
@@ -76,7 +76,9 @@
     <label for="area_id" class="col-form-label text-md-right">{{ __('Area a la que pertenece') }}</label>
     <select name="area_id" id="area_id" class="form-control {{ $errors->has('area_id') ? ' is-invalid' : '' }}">
         @foreach ($areas as $area)
-            <option value="{{$area->id}}" {{ old('id',$area->id) == $area->id ?'selected':''}}>{{ $area->name}}</option>
+            <option value="{{$area->id}}"
+                    {{ old('area_id',$area->id ) == $user->areas->pluck('pivot')->contains('area_id',$area->id) ? 'selected':''}}>
+                {{ $area->name}}</option>
         @endforeach
     </select>
 
