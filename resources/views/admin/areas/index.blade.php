@@ -8,8 +8,13 @@
 @stop
 
 @section('content')
-    <div class="box">
+    <div class="box box-warning">
         <div class="box-header">
+            <button class="btn btn-warning pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal">
+                <i class="fa fa-sitemap fa-lg"></i> Crear area nueva
+            </button>
             <h3 class="box-title">Listado de la tabla de areas</h3>
         </div>
         <!-- /.box-header -->

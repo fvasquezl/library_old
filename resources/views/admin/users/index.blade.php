@@ -12,18 +12,11 @@
 
     <div class="box box-info">
         <div class="box-header">
-            <div class="pull-right">
-                <button
-                        class="btn btn-info pull-right"
-                        data-toggle="modal"
-                        data-target="#myModal">
-                    <i class="fa fa-user-circle fa-lg"></i> Crear un usuario
+            <button class="btn btn-info pull-right"
+                    data-toggle="modal"
+                    data-target="#myModal">
+                <i class="fa fa-user-circle fa-lg"></i> Crear un usuario
                 </button>
-            </div>
-            {{--<button type="button" class="btn btn-primary pull-right" data-toggle="modal"--}}
-                    {{--data-target="#myModal">--}}
-                {{--Crear usuario--}}
-            {{--</button>--}}
             <h3 class="box-title">Listado de la tabla de usuarios</h3>
         </div>
         <!-- /.box-header -->
@@ -50,8 +43,10 @@
                         <td>{{$user->position}}</td>
                         <td>{{$user->getAreaName($user)}}</td>
                         <td>
-                            <a href="{{route('users.show',$user)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
-                            <a href="{{route('users.edit',$user)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
+                            <a href="{{route('users.show',$user)}}" class="btn btn-default btn-xs"><i
+                                        class="fa fa-eye"></i></a>
+                            <a href="{{route('users.edit',$user)}}" class="btn btn-success btn-xs"><i
+                                        class="fa fa-pencil"></i></a>
                             <form action="{{route('users.destroy', $user)}}"
                                   method="POST"
                                   style="display: inline">
