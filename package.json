@@ -20,6 +20,5 @@
     "vue": "^2.5.7"
   },
   "dependencies": {
-    "font-awesome": "^5.0.10"
   }
 }
