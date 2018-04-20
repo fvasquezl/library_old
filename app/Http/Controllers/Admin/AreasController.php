@@ -16,10 +16,10 @@ class AreasController extends Controller
      */
     public function index()
     {
-        $areas = Area::orderby('level','asc')
-            ->where('level','>=',0)
-            ->whereNotNull('parent_id')
-            ->paginate();
+        $areas = Area::orderby('level','asc')->get();
+//            ->where('level','>=',0)
+//            ->whereNotNull('parent_id')
+//            ->paginate();
         $parents = [];
         return view('admin.areas.index', compact('areas', 'parents'));
 
@@ -98,7 +98,7 @@ class AreasController extends Controller
 
         $request->session()->flash('success','El area ha sido guradada correctamente');
 
-        return redirect()->route('areas.edit' ,$area);
+        return redirect()->route('areas.index');
     }
 
     /**

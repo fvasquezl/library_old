@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
+        $users = User::all();
         return view('admin.users.index',compact('users'));
     }
 
@@ -65,7 +65,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $areas = Area::where('name','!=','Raiz')->get();
+        $areas = Area::where('level','>','0')->get();
         return view('admin.users.edit', compact('user','areas'));
     }
 
@@ -82,7 +82,7 @@ class UsersController extends Controller
         $user->areas()->sync($request->get('area_id'));
         $request->session()->flash('success','El usuario ha sido guardado correctamente');
 
-        return redirect()->route('users.edit' ,$user);
+        return redirect()->route('users.index');
     }
 
     /**

@@ -260,7 +260,7 @@ desired effect
         </section>
         <!-- Main content -->
         <section class="content container-fluid">
-
+            @include('layouts.partials.alerts')
             @yield('content')
 
         </section>

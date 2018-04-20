@@ -24,6 +24,7 @@ class Area extends Model
     public static function create(array $attributes =[])
     {
         $attributes['level'] = -1;
+        $attributes['parent_id'] = -1;
         $area = static::query()->create($attributes);
         return $area;
     }
