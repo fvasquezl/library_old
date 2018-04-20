@@ -92,17 +92,17 @@ class AreasController extends Controller
 
         $area->update($request->validated());
 
-        $request->session()->flash('success','El area ha sido guradada correctamente');
+        $request->session()->flash('success','El area ha sido guardada correctamente');
 
         return redirect()->route('areas.index');
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Area $area
+     * @param Area $area
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Area $area, Request $request)
     {
@@ -117,7 +117,5 @@ class AreasController extends Controller
 
         $area->delete();
         return redirect()->back()->with('success', 'El area '. $area->name.' ha sido eliminada');
-
-
     }
 }

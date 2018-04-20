@@ -18,11 +18,12 @@ class UsersTest extends DuskTestCase
     public function test_admin_can_create_user()
     {
         //$this->withoutExceptionHandling();
+        $this->createAreasStructure();
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser())
                 ->visitRoute('users.index');
 
-            $browser->press('Crear usuario')
+            $browser->press('Crear un usuario')
                 ->waitFor('#myModal', 5)
                 ->whenAvailable('#myModal', function ($modal) {
                     $modal->type('name', 'Faustino Vasquez')
@@ -45,17 +46,18 @@ class UsersTest extends DuskTestCase
     {
 
        // $this->withoutExceptionHandling();
+        $this->createAreasStructure();
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser())
                 ->visitRoute('users.index');
 
-            $browser->press('Crear usuario')
+            $browser->press('Crear un usuario')
                 ->waitFor('#myModal', 5)
                 ->whenAvailable('#myModal', function ($modal) {
                     $modal
                         ->press('Guardar cambios')
                         ->pause(1000)
-                        ->assertSeeIn('.invalid-feedback', 'The name field is required.');
+                        ->assertSeeIn('div.modal-body > div > span','El campo nombre es obligatorio');
                 });
         });
     }
@@ -67,6 +69,7 @@ class UsersTest extends DuskTestCase
     public function test_admin_can_edit_user()
     {
         $this->withoutExceptionHandling();
+        $this->createAreasStructure();
         $user = $this->createUser(['name'=>'Faustino Vasquez']);
 
         $this->browse(function (Browser $browser) use($user){
@@ -80,8 +83,10 @@ class UsersTest extends DuskTestCase
                 ->type('position', 'Empleado')
                 ->select('area_id', 3)
                 ->press('Guardar informacion')
-                ->assertPathIs('/admin/users/faustino-vasquez/edit')
-                ->assertSeeIn('.alert','El usuario ha sido guardado correctamente');
+                ->assertPathIs('/admin/users')
+                ->pause(1000)
+                ->assertVisible('.alert')
+                ->assertSeeIn('div.alert','El usuario ha sido guardado correctamente');
         });
 
         $this->assertDatabaseHas('users', [

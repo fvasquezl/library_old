@@ -3,7 +3,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i>
             &Eacute;xito!</h4>
-        {{ session('success') }}
+        <p>{{ session('success') }}</p>
     </div>
 @endif
 
@@ -12,7 +12,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i>
             Advertencia!</h4>
-        {{ session('info') }}
+        <p>{{ session('info') }}</p>
     </div>
 @endif
 

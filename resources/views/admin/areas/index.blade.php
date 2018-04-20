@@ -45,7 +45,8 @@
                                       method="POST"
                                       style="display: inline">
                                     @csrf {{method_field('DELETE')}}
-                                    <button class="btn btn-danger btn-xs"
+                                    <button id="delete_{{$area->id}}"
+                                            class="btn btn-danger btn-xs"
                                             onclick="return confirm('Estas seguro de querer eliminar esta area?')"
                                     ><i class="fa fa-times"></i></button>
                                 </form>

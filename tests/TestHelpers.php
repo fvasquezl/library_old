@@ -10,11 +10,13 @@ namespace Tests;
 
 
 use App\Area;
+use App\Category;
 use App\User;
 
 trait TestHelpers
 {
     protected $adminUser;
+    protected $employeeUser;
     protected $area;
     protected $user;
     protected $areas;
@@ -41,18 +43,43 @@ trait TestHelpers
     {
         factory(Area::class)->create(['name'=> 'Raiz', 'level' =>0, 'parent_id' =>0]);
         factory(Area::class)->create(['name'=> 'Direccion General','level' =>1,'parent_id' =>1]);
+        factory(Area::class)->create(['name'=> 'Consejo de Admon','level' =>1,'parent_id' =>1]);
         factory(Area::class)->create(['name'=> 'Gerencia de Servicios de Salud','level' =>2,'parent_id' =>2]);
+        factory(Area::class)->create(['name'=> 'Gerencia de Operaciones','level' =>2,'parent_id' =>2]);
     }
+
+    public function employeeUser()
+    {
+        if ($this->employeeUser) {
+            return $this->employeeUser;
+        }
+        $this->employeeUser = factory(User::class)->create();;
+        $area = Area::where('name','Gerencia de Servicios de Salud')->get();
+        $this->employeeUser->areas()->attach($area);
+        return $this->employeeUser;
+    }
+
 
     public function adminUser()
     {
         if ($this->adminUser) {
             return $this->adminUser;
         }
-        $this->createAreasStructure();
-        $direction = Area::where('level',1)->get();
+        $direction = Area::where('name','Direccion General')->get();
         $this->adminUser = factory(User::class)->create();
         $this->adminUser->areas()->attach($direction);
         return $this->adminUser;
     }
+
+
+    /*
+     * Helpers for categories and documents
+     */
+    public function createCategoriesStructure()
+    {
+        factory(Category::class)->create(['name'=> 'Primera Categoria']);
+        factory(Category::class)->create(['name'=> 'Segunda Categoria']);
+        factory(Category::class)->create(['name'=> 'Tercera Categoria']);
+    }
+
 }

@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@local.com';
-        $user->password = bcrypt('123123');
+        $user->password ='123123';
         $user->position= 'Gerente General';
         $user->save();
         $user->roles()->attach($role_admin);
@@ -31,11 +31,10 @@ class UsersTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Employee';
         $user->email = 'employee@local.com';
-        $user->password = bcrypt('123123');
+        $user->password = '123123';
         $user->position= 'Employee';
         $user->save();
         $user->roles()->attach($role_user);
         $user->areas()->attach($area_level2);
-
     }
 }
