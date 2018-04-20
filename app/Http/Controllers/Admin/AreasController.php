@@ -17,11 +17,7 @@ class AreasController extends Controller
     public function index()
     {
         $areas = Area::orderby('level','asc')->get();
-//            ->where('level','>=',0)
-//            ->whereNotNull('parent_id')
-//            ->paginate();
-        $parents = [];
-        return view('admin.areas.index', compact('areas', 'parents'));
+        return view('admin.areas.index', compact('areas'));
 
     }
 
@@ -105,15 +101,23 @@ class AreasController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Area $area
+     * @param Request $request
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
-    public function destroy(Area $area)
+    public function destroy(Area $area, Request $request)
     {
-        if($area->users()->count()){
-            return redirect()->back()->with('errors', 'Existen usuarios en esta area, eliminelos o muevalos a otra area');
+        if($area->children->count()){
+            return redirect()->back()
+                ->with('info', 'Existen areas que reportan de esta, eliminelas o muevalas a otra area');
         }
+        if($area->users()->count()){
+            return redirect()->back()
+                ->with('info', 'Existen usuarios en esta area, eliminelos o muevalos a otra area');
+        }
+
         $area->delete();
         return redirect()->back()->with('success', 'El area '. $area->name.' ha sido eliminada');
+
+
     }
 }

@@ -39,7 +39,6 @@
                         <td>{{($area->level >=0) ? $area->level:'--'}}</td>
                         <td>{{($area->parent_id) ? $area->parent->name : '--'}}</td>
                         <td class="text-left">
-                            {{--@if($area->level)--}}
                                 <a href="{{route('areas.show',$area)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
                                 <a href="{{route('areas.edit',$area)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
                                 <form action="{{route('areas.destroy', $area)}}"
@@ -50,7 +49,6 @@
                                             onclick="return confirm('Estas seguro de querer eliminar esta area?')"
                                     ><i class="fa fa-times"></i></button>
                                 </form>
-                            {{--@endif--}}
                         </td>
                     </tr>
                 @endforeach
