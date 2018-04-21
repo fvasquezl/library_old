@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -25,7 +26,8 @@ class DocumentsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.documents.create',compact('categories'));
     }
 
     /**
@@ -36,7 +38,15 @@ class DocumentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'title' => 'required',
+            'excerpt' => 'required',
+            'pdfdoc' => 'required',
+            'category_id' => 'required',
+        ]);
+        $document = Document::create($request->all());
+
+        return redirect()->route('documents.index' ,$document);
     }
 
     /**

@@ -75,6 +75,9 @@ trait TestHelpers
     /*
      * Helpers for categories and documents
      */
+
+
+
     public function createCategoriesStructure()
     {
         factory(Category::class)->create(['name'=> 'Primera Categoria']);
