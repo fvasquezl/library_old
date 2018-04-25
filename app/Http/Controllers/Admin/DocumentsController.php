@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Area;
 use App\Category;
 use App\Document;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +18,8 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-
+        $documents = Document::published()->get();
+        return view('admin.documents.index', compact('documents'));
     }
 
     /**
@@ -24,11 +27,12 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $categories = Category::all();
-        return view('admin.documents.create',compact('categories'));
-    }
+//    public function create()
+//    {
+//        $categories = Category::all();
+//        $areas = Area::all();
+//        return view('admin.documents.create',compact('categories','areas'));
+//    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,18 +40,42 @@ class DocumentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title' => 'required',
-            'excerpt' => 'required',
-            'pdfdoc' => 'required',
-            'category_id' => 'required',
-        ]);
-        $document = Document::create($request->all());
-
-        return redirect()->route('documents.index' ,$document);
+        $this->validate($request,['title' => 'required']);
+        $document = auth()->user()->createDoc($request->all());
+        return redirect()->route('documents.edit', compact('document'));
     }
+//    public function store(Request $request)
+//    {
+//
+//        $this->validate($request,[
+//            'title' => 'required',
+//            'excerpt' => 'required',
+//           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
+//            'areas' => 'required',
+//            'categories' => 'required',
+//        ]);
+//
+//        $document = new Document;
+//        $document->title = $request->get('title');
+//        $document->excerpt = $request->get('excerpt');
+//        $document->published_at = $request->has('published_at') ? Carbon::parse($request->get('published_at')) : Carbon::now();
+//        $document->user_id = $request->user()->id;
+//        $document->save();
+//
+//        $document->categories()->attach($request->get('categories'));
+//        $document->areas()->attach($request->get('areas'));
+//        $document->save();
+//
+////        if($request->hasFile('pdfbook')){
+////            $document->pdfbook = $request->file('pdfbook')->store('documents','public');
+////            $document->save();
+////        }
+//        $request->session()->flash('success','El documento "'.$document->title.'" ha sido creado');
+//        return redirect()->route('documents.index');
+//    }
 
     /**
      * Display the specified resource.
@@ -57,7 +85,7 @@ class DocumentsController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        return view('documents.show',compact('document'));
     }
 
     /**
@@ -68,7 +96,9 @@ class DocumentsController extends Controller
      */
     public function edit(Document $document)
     {
-        //
+        $categories = Category::all();
+        $areas = Area::all();
+        return view('admin.documents.edit',compact('categories','areas','document'));
     }
 
     /**
@@ -80,7 +110,29 @@ class DocumentsController extends Controller
      */
     public function update(Request $request, Document $document)
     {
-        //
+        $this->validate($request,[
+            'title' => 'required',
+            'excerpt' => 'required',
+           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
+            'areas' => 'required',
+            'categories' => 'required',
+        ]);
+
+        $document->title = $request->get('title');
+        $document->excerpt = $request->get('excerpt');
+        $document->published_at = $request->has('published_at') ? Carbon::parse($request->get('published_at')) : Carbon::now();
+        $document->user_id = $request->user()->id;
+        $document->save();
+
+        $document->categories()->sync($request->get('categories'));
+        $document->areas()->sync($request->get('areas'));
+        $document->save();
+
+//        if($request->hasFile('pdfbook')){
+//            $document->pdfbook = $request->file('pdfbook')->store('documents','public');
+//            $document->save();
+//        }
+        return back()->with('success','El documento ha sido Guardado');
     }
 
     /**

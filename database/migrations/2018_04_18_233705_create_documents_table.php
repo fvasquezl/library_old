@@ -17,10 +17,11 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('url');
-            $table->mediumText('excerpt');
+            $table->mediumText('excerpt')->nullable();
             $table->string('pdfbook')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

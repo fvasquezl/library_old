@@ -7,12 +7,9 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'title' => $faker->sentence,
         'excerpt' =>$faker->paragraph,
         'pdfbook' =>str_random(20),
+        'published_at' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'user_id' => function(){
             return factory(\App\User::class)->create()->id;
         },
-        'category_id' => function(){
-            return factory(\App\Category::class)->create()->id;
-        }
-
     ];
 });

@@ -17,7 +17,6 @@ class CreateAreaUserTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('area_id');
             $table->unsignedInteger('user_id');
-            $table->timestamps();
         });
     }
 

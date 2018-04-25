@@ -27,7 +27,11 @@ class DocumentTest extends DuskTestCase
                 ->type('excerpt','Synopsis de prueba')
                 ->attach('pdfbook', __DIR__.'/documents/test.pdf')
                 ->select('category_id',1)
-                ->press('Guardar informacion');
+                ->press('Guardar informacion')
+                ->assertPathIs('/admin/documents')
+                ->pause(1000)
+                ->assertVisible('.alert')
+                ->assertSeeIn('div.alert','l documento "Libro de prueba" ha sido creado');
         });
         $this->assertDatabaseHas('documents',[
             'title'=>'Libro de prueba',

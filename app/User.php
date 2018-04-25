@@ -48,15 +48,18 @@ class User extends Authenticatable
     public function roles()
     {
         return $this
-            ->belongsToMany(Role::class)
-            ->withTimestamps();
+            ->belongsToMany(Role::class);
     }
 
     public function areas()
     {
         return $this
-            ->belongsToMany(Area::class)->withPivot('area_id', 'user_id')
-            ->withTimestamps();
+            ->belongsToMany(Area::class)->withPivot('area_id', 'user_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function hasLevel($level)
@@ -72,4 +75,12 @@ class User extends Authenticatable
     {
         return  $user->areas->pluck('code')->implode(', ');
     }
+
+    public function createDoc(array $array)
+    {
+        $document = new Document($array);
+        $this->documents()->save($document);
+        return $document;
+    }
+
 }

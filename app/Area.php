@@ -17,8 +17,12 @@ class Area extends Model
     public function users()
     {
         return $this
-            ->belongsToMany(User::class)
-            ->withTimestamps();
+            ->belongsToMany(User::class);
+    }
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
     }
 
     public static function create(array $attributes =[])

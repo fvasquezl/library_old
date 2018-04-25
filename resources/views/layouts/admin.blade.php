@@ -372,6 +372,6 @@ desired effect
 
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-
+@include('admin.documents.partials.modal')
 </body>
 </html>

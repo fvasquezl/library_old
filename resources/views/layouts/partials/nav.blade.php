@@ -5,11 +5,8 @@
         <a href="{{route('home')}}"><i class="fa fa-home">
             </i> <span>Inicio</span></a>
     </li>
-    <li {{request()->is('documents.create') ? 'class=active' : ''}}>
-        <a href="{{route('documents.create')}}">
-            <i class="fa fa-pencil"></i> <span>Crear documento</span></a>
-    </li>
-    <li class="treeview {{request()->is('admin/*') ? 'active' : ''}}">
+
+    <li class="treeview {{request()->is('admin/areas') || request()->is('admin/users') ? 'active' : ''}}">
         <a href="#"><i class="fa fa-dashboard"></i> <span>Administracion</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -31,8 +28,11 @@
               </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{route('categories.index')}}">Categorias</a></li>
-            <li><a href="#">Otros</a></li>
+            <li><a href="{{route('documents.index')}}">Todos los documentos</a></li>
+            <li><a href="#" data-toggle="modal"
+                   data-target="#myModalDoc">
+                    <span>Crear documento</span></a>
+            </li>
         </ul>
     </li>
 </ul>
