@@ -132,7 +132,7 @@ class DocumentsController extends Controller
 //            $document->pdfbook = $request->file('pdfbook')->store('documents','public');
 //            $document->save();
 //        }
-        return back()->with('success','El documento ha sido Guardado');
+        return redirect()->route('admin.documents.edit',$document)->with('success','El documento ha sido Guardado');
     }
 
     /**

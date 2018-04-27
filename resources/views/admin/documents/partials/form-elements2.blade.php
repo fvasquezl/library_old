@@ -42,7 +42,7 @@
 
 <div class="form-group">
     <label for="myDropzone" class="col-form-label text-md-right">{{ __('Documento Pdf') }}</label>
-    <div class="dropzone" id="myDropzone"></div>
+    <div class="dropzone"></div>
 </div>
 
 <div class="form-group">

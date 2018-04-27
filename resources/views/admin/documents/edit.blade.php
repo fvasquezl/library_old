@@ -58,5 +58,14 @@
 
         CKEDITOR.replace('excerpt');
 
+        new Dropzone('.dropzone',{
+            url:'/admin/documents/{{$document->url}}/pdf',
+            dictDefaultMessage:'Arrastra el/los documentos aqui',
+            headers:{
+              'X-CSRF-TOKEN':'{{csrf_token()}}'
+            },
+        });
+        Dropzone.autoDiscover = false;
+
     </script>
 @endpush
