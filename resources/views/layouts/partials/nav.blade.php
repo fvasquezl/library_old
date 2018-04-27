@@ -14,10 +14,10 @@
         </a>
         <ul class="treeview-menu">
             <li {{request()->is('admin/areas') ? 'class=active' : ''}}>
-                <a href="{{route('areas.index')}}">Areas</a>
+                <a href="{{route('admin.areas.index')}}">Areas</a>
             </li>
             <li {{request()->is('admin/users') ? 'class=active' : ''}}>
-                <a href="{{route('users.index')}}">Usuarios</a>
+                <a href="{{route('admin.users.index')}}">Usuarios</a>
             </li>
         </ul>
     </li>
@@ -28,7 +28,7 @@
               </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{route('documents.index')}}">Todos los documentos</a></li>
+            <li><a href="{{route('admin.documents.index')}}">Todos los documentos</a></li>
             <li><a href="#" data-toggle="modal"
                    data-target="#myModalDoc">
                     <span>Crear documento</span></a>

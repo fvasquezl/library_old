@@ -43,7 +43,7 @@ class UsersController extends Controller
           'name' => 'required|min:3'
        ]);
         $user = User::create($request->all());
-        return redirect()->route('users.edit' ,$user);
+        return redirect()->route('admin.users.edit' ,$user);
     }
 
     /**
@@ -82,7 +82,7 @@ class UsersController extends Controller
         $user->areas()->sync($request->get('area_id'));
         $request->session()->flash('success','El usuario ha sido guardado correctamente');
 
-        return redirect()->route('users.index');
+        return redirect()->route('admin.users.index');
     }
 
     /**

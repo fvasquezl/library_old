@@ -100,7 +100,7 @@
                 <button type="submit" class="btn btn-primary">
                     Guardar informacion
                 </button>
-                <a href="{{route('users.index')}}" class="btn btn-danger">Retornar</a>
+                <a href="{{route('admin.users.index')}}" class="btn btn-danger">Retornar</a>
             </div>
         </div>
     </div>

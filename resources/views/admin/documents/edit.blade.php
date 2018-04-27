@@ -12,7 +12,7 @@
 
 @section ('content')
     <div class="row">
-        <form method="POST" action="{{ route('documents.update',$document) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.documents.update',$document) }}" enctype="multipart/form-data">
             {{ csrf_field() }}{{method_field('PUT')}}
             <div class="col-md-8">
                 <div class="box box-primary">

@@ -45,7 +45,7 @@ class DocumentsController extends Controller
     {
         $this->validate($request,['title' => 'required']);
         $document = auth()->user()->createDoc($request->all());
-        return redirect()->route('documents.edit', compact('document'));
+        return redirect()->route('admin.documents.edit', compact('document'));
     }
 //    public function store(Request $request)
 //    {

@@ -10,7 +10,7 @@
     </ol>
 @stop
 @section('content')
-    <form method="POST" action="{{ route('users.update', $user) }}">
+    <form method="POST" action="{{ route('admin.users.update', $user) }}">
         {{method_field('PUT')}}
         @include('admin.users.partials.form')
     </form>

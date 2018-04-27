@@ -37,17 +37,17 @@
                     <tr>
                         <td>{{$user->id}}</td>
                         <td>
-                            <a href="{{route('users.show',$user->id)}}">{{$user->name}}</a>
+                            <a href="{{route('admin.users.show',$user->id)}}">{{$user->name}}</a>
                         </td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->position}}</td>
                         <td>{{$user->getAreaName($user)}}</td>
                         <td>
-                            <a href="{{route('users.show',$user)}}" class="btn btn-default btn-xs"><i
+                            <a href="{{route('admin.users.show',$user)}}" class="btn btn-default btn-xs"><i
                                         class="fa fa-eye"></i></a>
-                            <a href="{{route('users.edit',$user)}}" class="btn btn-success btn-xs"><i
+                            <a href="{{route('admin.users.edit',$user)}}" class="btn btn-success btn-xs"><i
                                         class="fa fa-pencil"></i></a>
-                            <form action="{{route('users.destroy', $user)}}"
+                            <form action="{{route('admin.users.destroy', $user)}}"
                                   method="POST"
                                   style="display: inline">
                                 @csrf {{method_field('DELETE')}}

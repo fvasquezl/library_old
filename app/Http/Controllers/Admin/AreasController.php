@@ -54,7 +54,7 @@ class AreasController extends Controller
         ]);
        $area = Area::create($request->all());
 
-       return redirect()->route('areas.edit' ,$area);
+       return redirect()->route('admin.areas.edit' ,$area);
     }
 
     /**
@@ -94,7 +94,7 @@ class AreasController extends Controller
 
         $request->session()->flash('success','El area ha sido guardada correctamente');
 
-        return redirect()->route('areas.index');
+        return redirect()->route('admin.areas.index');
     }
 
 

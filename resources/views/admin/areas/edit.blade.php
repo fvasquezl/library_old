@@ -8,7 +8,7 @@
     </ol>
 @stop
 @section ('content')
-    <form method="POST" action="{{ route('areas.update', $area) }}">
+    <form method="POST" action="{{ route('admin.areas.update', $area) }}">
         {{method_field('PUT')}}
         @include('admin.areas.partials.form')
     </form>

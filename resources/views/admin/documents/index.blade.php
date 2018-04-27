@@ -35,14 +35,14 @@
                 @foreach ($documents as $document)
                     <tr>
                         <td>{{$document->id}}</td>
-                        <td><a href="{{route('documents.show',$document->url)}}">{{str_limit($document->title,50)}}</a></td>
+                        <td><a href="{{route('admin.documents.show',$document->url)}}">{{str_limit($document->title,50)}}</a></td>
                         <td>{{strip_tags(str_limit($document->excerpt,50))}}</td>
                         <td>{{$document->user->name}}</td>
                         <td>{{$document->published_at}}</td>
                         <td>
-                            <a href="{{route('documents.show',$document)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
-                            <a href="{{route('documents.edit',$document)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
-                            <form action="{{route('documents.destroy', $document)}}"
+                            <a href="{{route('admin.documents.show',$document)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('admin.documents.edit',$document)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
+                            <form action="{{route('admin.documents.destroy', $document)}}"
                                   method="POST"
                                   style="display: inline">
                                 @csrf {{method_field('DELETE')}}

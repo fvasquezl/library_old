@@ -77,7 +77,7 @@
                 <button type="submit" class="btn btn-primary">
                     Guardar informacion
                 </button>
-                <a href="{{route('areas.index')}}" class="btn btn-danger">Retornar</a>
+                <a href="{{route('admin.areas.index')}}" class="btn btn-danger">Retornar</a>
             </div>
         </div>
     </div>

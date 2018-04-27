@@ -1,6 +1,6 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="createAreaLabel"
      aria-hidden="true">
-    <form method="POST" action="{{ route('areas.store','#create') }}">
+    <form method="POST" action="{{ route('admin.areas.store','#create') }}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

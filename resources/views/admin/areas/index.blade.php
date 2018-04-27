@@ -34,14 +34,14 @@
                 @foreach ($areas as $area)
                     <tr>
                         <td>{{$area->id}}</td>
-                        <td class="text-left"><a href="{{route('areas.show',$area->url)}}">{{$area->name}}</a></td>
+                        <td class="text-left"><a href="{{route('admin.areas.show',$area->url)}}">{{$area->name}}</a></td>
                         <td>{{($area->code) ? $area->code : '--'}}</td>
                         <td>{{($area->level >=0) ? $area->level:'--'}}</td>
                         <td>{{($area->parent_id) ? $area->parent->name : '--'}}</td>
                         <td class="text-left">
-                                <a href="{{route('areas.show',$area)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
-                                <a href="{{route('areas.edit',$area)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
-                                <form action="{{route('areas.destroy', $area)}}"
+                                <a href="{{route('admin.areas.show',$area)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
+                                <a href="{{route('admin.areas.edit',$area)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
+                                <form action="{{route('admin.areas.destroy', $area)}}"
                                       method="POST"
                                       style="display: inline">
                                     @csrf {{method_field('DELETE')}}
