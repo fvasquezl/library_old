@@ -37,6 +37,11 @@ class Document extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function pdfs()
+    {
+        return $this->hasMany(Pdf::class);
+    }
+
     public function scopePublished($query)
     {
         $query->where('published_at','<=',Carbon::now())

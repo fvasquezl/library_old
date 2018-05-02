@@ -58,13 +58,22 @@
 
         CKEDITOR.replace('excerpt');
 
-        new Dropzone('.dropzone',{
-            url:'/admin/documents/{{$document->url}}/pdf',
+        var myDropzone = new Dropzone('.dropzone',{
+            url: '/admin/documents/{{$document->url}}/pdf',
+             paramName: 'documento',
+            acceptedFiles: '.pdf',
+            maxFilesize: 250,
+            //maxFiles: 1,
             dictDefaultMessage:'Arrastra el/los documentos aqui',
             headers:{
               'X-CSRF-TOKEN':'{{csrf_token()}}'
             },
         });
+        myDropzone.on('error',function (file,res) {
+            var msg = res.errors.documento[0];
+            $('.dz-error-message:last > span').text(msg)
+        });
+
         Dropzone.autoDiscover = false;
 
     </script>

@@ -40,7 +40,11 @@
                         <td>{{$document->user->name}}</td>
                         <td>{{$document->published_at}}</td>
                         <td>
-                            <a href="{{route('admin.documents.show',$document)}}" class="btn btn-default btn-xs"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('documents.show',$document)}}"
+                               class="btn btn-default btn-xs"
+                                target="_blank"
+                            >
+                                <i class="fa fa-eye"></i></a>
                             <a href="{{route('admin.documents.edit',$document)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
                             <form action="{{route('admin.documents.destroy', $document)}}"
                                   method="POST"
