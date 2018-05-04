@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DocumentsTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Document::class,5)->create();
+        factory(\App\Post::class,5)->create();
     }
 }

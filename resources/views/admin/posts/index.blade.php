@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section ('header')
-    <h1>DOCUMENTOS <small>Todos los documentos</small></h1>
+    <h1>PUBLICACIONES <small>Todos las publicaciones</small></h1>
     <ol class="breadcrumb">
         <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
-        <li class="active">Documents</li>
+        <li class="active">Posts</li>
         <li class="active">Index</li>
     </ol>
 @stop
@@ -13,14 +13,14 @@
         <div class="box-header">
             <button class="btn btn-twitter pull-right"
                     data-toggle="modal"
-                    data-target="#myModalDoc">
-                <i class="fa fa-book fa-lg"></i> Crear documento nuevo
+                    data-target="#myModalPost">
+                <i class="fa fa-book fa-lg"></i> Crear publicaci&oacute;n nuevo
             </button>
-            <h3 class="box-title">Listado de documentos</h3>
+            <h3 class="box-title">Listado de publicaciones</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="documents-table" class="table table-bordered table-striped">
+            <table id="posts-table" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -32,27 +32,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($documents as $document)
+                @foreach ($posts as $post)
                     <tr>
-                        <td>{{$document->id}}</td>
-                        <td><a href="{{route('admin.documents.show',$document->url)}}">{{str_limit($document->title,50)}}</a></td>
-                        <td>{{strip_tags(str_limit($document->excerpt,50))}}</td>
-                        <td>{{$document->user->name}}</td>
-                        <td>{{$document->published_at}}</td>
+                        <td>{{$post->id}}</td>
+                        <td><a href="{{route('admin.posts.show',$post->url)}}">{{str_limit($post->title,50)}}</a></td>
+                        <td>{{strip_tags(str_limit($post->excerpt,50))}}</td>
+                        <td>{{$post->user->name}}</td>
+                        <td>{{$post->published_at}}</td>
                         <td>
-                            <a href="{{route('documents.show',$document)}}"
+                            <a href="{{route('posts.show',$post)}}"
                                class="btn btn-default btn-xs"
                                 target="_blank"
                             >
                                 <i class="fa fa-eye"></i></a>
-                            <a href="{{route('admin.documents.edit',$document)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
-                            <form action="{{route('admin.documents.destroy', $document)}}"
+                            <a href="{{route('admin.posts.edit',$post)}}" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></a>
+                            <form action="{{route('admin.posts.destroy', $post)}}"
                                   method="POST"
                                   style="display: inline">
                                 @csrf {{method_field('DELETE')}}
-                                <button id="delete_{{$document->id}}"
+                                <button id="delete_{{$post->id}}"
                                         class="btn btn-danger btn-xs"
-                                        onclick="return confirm('Estas seguro de querer eliminar esta document?')"
+                                        onclick="return confirm('Estas seguro de querer eliminar esta publicacion?')"
                                 ><i class="fa fa-times"></i></button>
                             </form>
                         </td>
@@ -64,7 +64,7 @@
         <!-- /.box-body -->
     </div>
     <!-- /.box -->
-    @include('admin.documents.partials.modal')
+    @include('admin.posts.partials.modal')
 @endsection
 
 
@@ -79,7 +79,7 @@
     <script src="/adminlte/components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(function () {
-            $('#documents-table').DataTable()
+            $('#posts-table').DataTable()
         })
     </script>
 @endpush

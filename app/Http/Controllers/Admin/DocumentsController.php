@@ -2,147 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Area;
-use App\Category;
-use App\Document;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Post;
 use App\Http\Controllers\Controller;
+use App\Document;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class DocumentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function store(Post $post)
     {
-        $documents = Document::published()->get();
-        return view('admin.documents.index', compact('documents'));
-    }
+       // $uniqueFileName = uniqid() . request()->get('upload_file')->getClientOriginalName() . '.' . request()->get('upload_file')->getClientOriginalExtension();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function create()
-//    {
-//        $categories = Category::all();
-//        $areas = Area::all();
-//        return view('admin.documents.create',compact('categories','areas'));
-//    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-    public function store(Request $request)
-    {
-        $this->validate($request,['title' => 'required']);
-        $document = auth()->user()->createDoc($request->all());
-        return redirect()->route('admin.documents.edit', compact('document'));
-    }
-//    public function store(Request $request)
-//    {
-//
-//        $this->validate($request,[
-//            'title' => 'required',
-//            'excerpt' => 'required',
-//           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
-//            'areas' => 'required',
-//            'categories' => 'required',
-//        ]);
-//
-//        $document = new Document;
-//        $document->title = $request->get('title');
-//        $document->excerpt = $request->get('excerpt');
-//        $document->published_at = $request->has('published_at') ? Carbon::parse($request->get('published_at')) : Carbon::now();
-//        $document->user_id = $request->user()->id;
-//        $document->save();
-//
-//        $document->categories()->attach($request->get('categories'));
-//        $document->areas()->attach($request->get('areas'));
-//        $document->save();
-//
-////        if($request->hasFile('pdfbook')){
-////            $document->pdfbook = $request->file('pdfbook')->store('documents','public');
-////            $document->save();
-////        }
-//        $request->session()->flash('success','El documento "'.$document->title.'" ha sido creado');
-//        return redirect()->route('documents.index');
-//    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Document $document)
-    {
-        return view('documents.show',compact('document'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Document $document)
-    {
-        $categories = Category::all();
-        $areas = Area::all();
-        return view('admin.documents.edit',compact('categories','areas','document'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Document $document)
-    {
-        $this->validate($request,[
-            'title' => 'required',
-            'excerpt' => 'required',
-           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
-            'areas' => 'required',
-            'categories' => 'required',
+        $this->validate(request(),[
+            'documento' => 'required|file|mimes:pdf|max:31250',
         ]);
 
-        $document->title = $request->get('title');
-        $document->excerpt = $request->get('excerpt');
-        $document->published_at = $request->has('published_at') ? Carbon::parse($request->get('published_at')) : Carbon::now();
-        $document->user_id = $request->user()->id;
-        $document->save();
+        $documento = request()->file('documento')->store('documents','public');
+        Document::create([
+            'url' => Storage::url($documento),
+            'name' => request()->file('documento')->getClientOriginalName(),
+            'post_id' => $post->id
+        ]);
 
-        $document->categories()->sync($request->get('categories'));
-        $document->areas()->sync($request->get('areas'));
-        $document->save();
-
-//        if($request->hasFile('pdfbook')){
-//            $document->pdfbook = $request->file('pdfbook')->store('documents','public');
-//            $document->save();
-//        }
-        return redirect()->route('admin.documents.edit',$document)->with('success','El documento ha sido Guardado');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Document $document)
-    {
-        //
     }
 }

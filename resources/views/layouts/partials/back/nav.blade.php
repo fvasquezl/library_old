@@ -22,16 +22,16 @@
         </ul>
     </li>
     <li class="treeview">
-        <a href="#"><i class="fa fa-book"></i> <span>Documentos</span>
+        <a href="#"><i class="fa fa-book"></i> <span>Publicaciones</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="{{route('admin.documents.index')}}">Todos los documentos</a></li>
+            <li><a href="{{route('admin.posts.index')}}">Todos las publicaciones</a></li>
             <li><a href="#" data-toggle="modal"
-                   data-target="#myModalDoc">
-                    <span>Crear documento</span></a>
+                   data-target="#myModalPost">
+                    <span>Crear publicacion</span></a>
             </li>
         </ul>
     </li>

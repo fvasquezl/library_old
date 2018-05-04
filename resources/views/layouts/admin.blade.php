@@ -249,7 +249,7 @@ desired effect
         <!-- /.search form -->
 
             <!-- Sidebar Menu -->
-        @include('layouts.partials.nav')
+        @include('layouts.partials.back.nav')
         <!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -263,7 +263,7 @@ desired effect
         </section>
         <!-- Main content -->
         <section class="content container-fluid">
-            @include('layouts.partials.alerts')
+            @include('layouts.partials.back.alerts')
             @yield('content')
 
         </section>
@@ -372,6 +372,6 @@ desired effect
 
 <!-- AdminLTE App -->
 <script src="/adminlte/js/adminlte.min.js"></script>
-@include('admin.documents.partials.modal')
+@include('admin.posts.partials.modal')
 </body>
 </html>

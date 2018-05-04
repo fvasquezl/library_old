@@ -23,8 +23,8 @@ class Category extends Model
         $this->attributes['url'] = Str::slug($name);
     }
 
-    public function Documents()
+    public function posts()
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Post::class);
     }
 }

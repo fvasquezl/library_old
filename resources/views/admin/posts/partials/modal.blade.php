@@ -1,7 +1,7 @@
-<div class="modal fade" id="myModalDoc" tabindex="-1" role="dialog" aria-labelledby="createAreaLabel"
+<div class="modal fade" id="myModalPost" tabindex="-1" role="dialog" aria-labelledby="createAreaLabel"
      aria-hidden="true">
-    <form method="POST" action="{{ route('admin.documents.store','#create') }}">
-        <div class="modal-dialog" role="document">
+    <form method="POST" action="{{ route('admin.posts.store','#create') }}">
+        <div class="modal-dialog" role="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button"
@@ -10,7 +10,7 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="createAreaLabel">Crear un area de documento nuevo</h4>
+                    <h4 class="modal-title" id="createAreaLabel">Crear un area nueva</h4>
                 </div>
 
                 {{ csrf_field() }}

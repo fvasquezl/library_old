@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaDocumentTable extends Migration
+class CreateDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAreaDocumentTable extends Migration
      */
     public function up()
     {
-        Schema::create('area_document', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('area_id')->unsigned();
-            $table->integer('document_id')->unsigned();
+            $table->unsignedInteger('post_id');
+            $table->string('name');
+            $table->string('url');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateAreaDocumentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_document');
+        Schema::dropIfExists('documents');
     }
 }

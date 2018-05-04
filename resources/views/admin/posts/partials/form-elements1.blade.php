@@ -4,7 +4,7 @@
            type="text"
            class="form-control"
            name="title"
-           value="{{ old('title',$document->title) }}"
+           value="{{ old('title',$post->title) }}"
            autofocus>
     @if ($errors->has('title'))
         <span class="help-block">
@@ -20,7 +20,7 @@
               rows="8"
               class="form-control"
               placeholder="Ingresa un extracto de ls publicacion">
-        {{old('excerpt',$document->excerpt)}}
+        {{old('excerpt',$post->excerpt)}}
     </textarea>
 
     @if ($errors->has('excerpt'))

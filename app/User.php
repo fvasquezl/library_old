@@ -57,9 +57,9 @@ class User extends Authenticatable
             ->belongsToMany(Area::class)->withPivot('area_id', 'user_id');
     }
 
-    public function documents()
+    public function posts()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Post::class);
     }
 
     public function hasLevel($level)
@@ -76,11 +76,11 @@ class User extends Authenticatable
         return  $user->areas->pluck('code')->implode(', ');
     }
 
-    public function createDoc(array $array)
+    public function createPost(array $array)
     {
-        $document = new Document($array);
-        $this->documents()->save($document);
-        return $document;
+        $post = new Post($array);
+        $this->posts()->save($post);
+        return $post;
     }
 
 }

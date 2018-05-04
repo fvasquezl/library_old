@@ -4,10 +4,11 @@ Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents');
 
 Route::resource('users','Admin\UsersController');
 
-Route::resource('documents','Admin\DocumentsController');
+Route::resource('posts','Admin\PostsController');
 
 Route::resource('categories','Admin\CategoriesController');
 
-Route::post('documents/{document}/pdf', 'Admin\PdfController@store')->name('documents.pdf.store');
+Route::post('posts/{post}/document', 'Admin\DocumentsController@store')->name('posts.document.store');
+
 
 Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents');

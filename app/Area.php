@@ -20,9 +20,9 @@ class Area extends Model
             ->belongsToMany(User::class);
     }
 
-    public function documents()
+    public function posts()
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Post::class);
     }
 
     public static function create(array $attributes =[])

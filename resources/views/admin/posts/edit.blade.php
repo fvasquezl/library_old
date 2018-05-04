@@ -1,30 +1,30 @@
 @extends('layouts.admin')
 @section ('header')
-    <h1>DOCUMENTOS
+    <h1>PUBLICACIONES
         <small>Creacion</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
-        <li class="active">Documents</li>
+        <li class="active">Posts</li>
         <li class="active">Create</li>
     </ol>
 @stop
 
 @section ('content')
     <div class="row">
-        <form method="POST" action="{{ route('admin.documents.update',$document) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.posts.update',$post) }}" enctype="multipart/form-data">
             {{ csrf_field() }}{{method_field('PUT')}}
             <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-body">
-                        @include('admin.documents.partials.form-elements1')
+                        @include('admin.posts.partials.form-elements1')
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-body">
-                        @include('admin.documents.partials.form-elements2')
+                        @include('admin.posts.partials.form-elements2')
                     </div>
                 </div>
             </div>
@@ -59,8 +59,8 @@
         CKEDITOR.replace('excerpt');
 
         var myDropzone = new Dropzone('.dropzone',{
-            url: '/admin/documents/{{$document->url}}/pdf',
-             paramName: 'documento',
+            url: '/admin/posts/{{$post->url}}/document',
+            paramName: 'documento',
             acceptedFiles: '.pdf',
             maxFilesize: 250,
             //maxFiles: 1,
@@ -70,7 +70,7 @@
             },
         });
         myDropzone.on('error',function (file,res) {
-            var msg = res.errors.documento[0];
+            var msg = res.errors.post[0];
             $('.dz-error-message:last > span').text(msg)
         });
 

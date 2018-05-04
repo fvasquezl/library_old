@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePdfsTable extends Migration
+class CreateCategoryPostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePdfsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pdfs', function (Blueprint $table) {
+        Schema::create('category_post', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('document_id');
-            $table->string('url');
-            $table->timestamps();
+            $table->integer('category_id')->unsigned();
+            $table->integer('post_id')->unsigned();
         });
     }
 
@@ -28,6 +27,6 @@ class CreatePdfsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdfs');
+        Schema::dropIfExists('category_post');
     }
 }

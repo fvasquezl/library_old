@@ -7,7 +7,7 @@
         <input name="published_at"
                class="form-control pull-right"
                id="datepicker"
-               value="{{old('published_at',$document->published_at ? $document->published_at->format('m/d/Y'):null)}}">
+               value="{{old('published_at',$post->published_at ? $post->published_at->format('m/d/Y'):null)}}">
     </div>
 </div>
 
@@ -17,7 +17,7 @@
             class="form-control select2"
             multiple>
         @foreach ($categories as $category)
-            <option {{collect(old('categories',$document->categories->pluck('id')))->contains($category->id) ? 'selected' : '' }}
+            <option {{collect(old('categories',$post->categories->pluck('id')))->contains($category->id) ? 'selected' : '' }}
                     value="{{$category->id}}">{{$category->name}}</option>
         @endforeach
     </select>
@@ -34,7 +34,7 @@
             class="form-control select2"
             multiple>
         @foreach ($areas as $area)
-            <option {{collect(old('areas',$document->areas->pluck('id')))->contains($area->id) ? 'selected' : '' }}
+            <option {{collect(old('areas',$post->areas->pluck('id')))->contains($area->id) ? 'selected' : '' }}
                     value="{{$area->id}}">{{$area->name}}</option>
         @endforeach
     </select>
@@ -47,6 +47,6 @@
 
 <div class="form-group">
     <button type="submit" id="submit-all" class="btn btn-primary btn-block">
-        Guardar documento
+        Guardar publicacion
     </button>
 </div>

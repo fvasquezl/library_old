@@ -121,7 +121,7 @@
     </nav>
 
     <main class="py-4">
-        @include('layouts.partials.alerts')
+        @include('layouts.partials.back.alerts')
         @yield('content')
     </main>
 </div>
