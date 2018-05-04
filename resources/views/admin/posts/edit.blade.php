@@ -29,6 +29,34 @@
                 </div>
             </div>
         </form>
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header ui-sortable-handle" style="cursor: move;">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title">Documentos asociados</h3>
+
+                    <div class="box-tools pull-right">
+                    </div>
+                </div>
+               <div class="box-body">
+                   <ul class="todo-list ui-sortable">
+                       @foreach($post->documents as $document)
+                           <li>
+                               <i class="fa fa-file-pdf fa-2x"></i>
+                               <span class="text"><a href="{{$document->url}}"target="_blank">{{$document->name}}</a></span>
+                               <!-- General tools such as edit or delete-->
+                               <div class="tools">
+                                   <form method="POST" action="{{route('admin.documents.destroy',$document->id)}}">
+                                       {{method_field('DELETE')}} {{csrf_field()}}
+                                       <button class="btn btn-link"><i class="fa fa-trash-o fa-2x"></i></button>
+                                   </form>
+                               </div>
+                           </li>
+                       @endforeach
+                   </ul>
+               </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -50,13 +78,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.js"></script>
     <!-- Select2 -->
     <script src="/adminlte/components/select2/dist/js/select2.full.min.js"></script>
+    <!--Laravel.js -->
+    <script src="/js/laravel.js"></script>
+
     <script>
         $('#datepicker').datepicker({
            autoclose:true
         });
         $('.select2').select2();
 
+
         CKEDITOR.replace('excerpt');
+        CKEDITOR.config.height = 250;
 
         var myDropzone = new Dropzone('.dropzone',{
             url: '/admin/posts/{{$post->url}}/document',

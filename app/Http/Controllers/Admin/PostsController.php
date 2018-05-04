@@ -22,17 +22,6 @@ class PostsController extends Controller
         return view('admin.posts.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function create()
-//    {
-//        $categories = Category::all();
-//        $areas = Area::all();
-//        return view('admin.posts.create',compact('categories','areas'));
-//    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,35 +36,7 @@ class PostsController extends Controller
         $post = auth()->user()->createPost($request->all());
         return redirect()->route('admin.posts.edit', compact('post'));
     }
-//    public function store(Request $request)
-//    {
-//
-//        $this->validate($request,[
-//            'title' => 'required',
-//            'excerpt' => 'required',
-//           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
-//            'areas' => 'required',
-//            'categories' => 'required',
-//        ]);
-//
-//        $post = new Document;
-//        $post->title = $request->get('title');
-//        $post->excerpt = $request->get('excerpt');
-//        $post->published_at = $request->has('published_at') ? Carbon::parse($request->get('published_at')) : Carbon::now();
-//        $post->user_id = $request->user()->id;
-//        $post->save();
-//
-//        $post->categories()->attach($request->get('categories'));
-//        $post->areas()->attach($request->get('areas'));
-//        $post->save();
-//
-////        if($request->hasFile('pdfbook')){
-////            $post->pdfbook = $request->file('pdfbook')->store('posts','public');
-////            $post->save();
-////        }
-//        $request->session()->flash('success','El posto "'.$post->title.'" ha sido creado');
-//        return redirect()->route('posts.index');
-//    }
+
 
     /**
      * Display the specified resource.
@@ -113,7 +74,6 @@ class PostsController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'excerpt' => 'required',
-           // 'pdfbook' => 'required|file|mimes:pdf|max:5000000',
             'areas' => 'required',
             'categories' => 'required',
         ]);
@@ -128,10 +88,6 @@ class PostsController extends Controller
         $post->areas()->sync($request->get('areas'));
         $post->save();
 
-//        if($request->hasFile('pdfbook')){
-//            $post->pdfbook = $request->file('pdfbook')->store('posts','public');
-//            $post->save();
-//        }
         return redirect()->route('admin.posts.edit',$post)->with('success','El post ha sido Guardado');
     }
 

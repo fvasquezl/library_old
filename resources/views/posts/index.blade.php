@@ -78,9 +78,6 @@
 
             </div>
             <div class="box-footer">
-                Aqui poner los departamentos a los que esta asignado el documento
-                Agregar el titulo del documento a cada documento que se suba
-                Cambiar todo a post ->documento en lugar de documento-pdf
 
                 Agregar avatar para el usuario
             </div>
