@@ -15,8 +15,8 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $documents = Document::published()->get();
-        return view('admin.documents.index', compact('documents'));
+        $documents = Document::with(['user','pdfs','categories'])->published()->get();
+        return view('documents.index', compact('documents'));
     }
     /**
      * Display the specified resource.

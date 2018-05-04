@@ -1,0 +1,61 @@
+
+
+Thu May  3 09:47:32 2018
+Command line: TestDisk
+
+TestDisk 7.0, Data Recovery Utility, April 2015
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 4.15.0-20-generic (#21-Ubuntu SMP Tue Apr 24 06:16:15 UTC 2018) x86_64
+Compiler: GCC 7.2
+ext2fs lib: 1.44.1, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.0
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       5860533168 sectors
+/dev/sda: user_max   5860533168 sectors
+/dev/sda: native_max 5860533168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Hard disk list
+Disk /dev/sda - 3000 GB / 2794 GiB - CHS 364801 255 63, sector size=512 - ST3000DM001-1ER166, S/N:Z5031TYD, FW:CC26
+Disk /dev/sdb - 125 GB / 116 GiB - CHS 15252 255 63, sector size=512 - SanDisk Cruzer Glide, FW:1.00
+
+Partition table type (auto): Intel
+Disk /dev/sdb - 125 GB / 116 GiB - SanDisk Cruzer Glide
+Partition table type: Intel
+
+Analyse Disk /dev/sdb - 125 GB / 116 GiB - CHS 15252 255 63
+Geometry from i386 MBR: head=255 sector=63
+BAD_RS LBA=32 16450559
+NTFS at 0/0/33
+Current partition structure:
+ 1 * HPFS - NTFS              0   0 33 15252 249 37  245039072
+
+Bad relative sector.
+
+search_part()
+Disk /dev/sdb - 125 GB / 116 GiB - CHS 15252 255 63
+NTFS at 0/0/33
+filesystem size           245039072
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               15314941
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS              0   0 33 15252 249 37  245039072
+     NTFS, blocksize=4096, 125 GB / 116 GiB
+
+Results
+   * HPFS - NTFS              0   0 33 15252 249 37  245039072
+     NTFS, blocksize=4096, 125 GB / 116 GiB
+
+Hint for advanced users. dmsetup may be used if you prefer to avoid to rewrite the partition table for the moment:
+echo "0 245039072 linear /dev/sdb 32" | dmsetup create test0
+
+interface_write()
+ 1 * HPFS - NTFS              0   0 33 15252 249 37  245039072
+simulate write!
+
+write_mbr_i386: starting...
+write_all_log_i386: starting...
+No extended partition
+
+TestDisk exited normally.
