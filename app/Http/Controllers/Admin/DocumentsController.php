@@ -33,7 +33,6 @@ class DocumentsController extends Controller
      */
     public function destroy(Document $document)
     {
-        dd('hrerere');
         $document->delete();
         return back()->with('success', 'Documento eliminado');
     }

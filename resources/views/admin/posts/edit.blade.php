@@ -39,18 +39,22 @@
                     </div>
                 </div>
                <div class="box-body">
-                   <ul class="todo-list ui-sortable">
+                   <ul class="todo-list">
                        @foreach($post->documents as $document)
                            <li>
-                               <i class="fa fa-file-pdf fa-2x"></i>
-                               <span class="text"><a href="{{$document->url}}"target="_blank">{{$document->name}}</a></span>
-                               <!-- General tools such as edit or delete-->
-                               <div class="tools">
-                                   <form method="POST" action="{{route('admin.documents.destroy',$document->id)}}">
-                                       {{method_field('DELETE')}} {{csrf_field()}}
-                                       <button class="btn btn-link"><i class="fa fa-trash-o fa-2x"></i></button>
-                                   </form>
-                               </div>
+                               <form method="POST" action="{{route('admin.documents.destroy',$document->id)}}">
+                                   {{method_field('DELETE')}} {{csrf_field()}}
+                                   <span class="text"><i class="fa fa-file-pdf-o fa-2x" style="color: red"></i></span>
+                                   <span class="text"><a href="{{$document->url}}" target="_blank">{{$document->name}}</a></span>
+                                   <!-- General tools such as edit or delete-->
+                                   <div class="tools">
+                                       <button class="btn btn-link "
+                                               onclick="return confirm('Esta seguro de elimiar este documento？')"
+                                               style="margin-top: -5px">
+                                           <i class="fa fa-trash-o fa-2x" style="color: red"></i>
+                                       </button>
+                                   </div>
+                               </form>
                            </li>
                        @endforeach
                    </ul>
