@@ -16,7 +16,15 @@ class CreateAreaUserTable extends Migration
         Schema::create('area_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('area_id');
+            $table->foreign('area_id')
+                ->references('id')
+                ->on('areas')
+                ->onDelete('cascade');
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

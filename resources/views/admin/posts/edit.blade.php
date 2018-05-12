@@ -4,7 +4,7 @@
         <small>Creacion</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
+        <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
         <li class="active">Posts</li>
         <li class="active">Create</li>
     </ol>

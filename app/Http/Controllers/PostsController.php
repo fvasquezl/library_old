@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Area;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -15,7 +17,29 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['user','documents','categories'])->published()->get();
+
+        //Un post para un departamento de nivel inferior debe poder ser visto por todos sus
+        //padres
+        $areas = auth()->user()->areas;
+        //$parents ='';
+
+        foreach($areas as $area){
+          $parents[] = implode(',',$area->parents->where('id','!=',1)->pluck('id')->toArray());
+        }
+
+
+
+
+       return $parents;
+    //    return array_splice($parents, -1);
+
+        $posts = Post::with('areas')
+            ->whereHas('areas',function($query) use ($area){
+            $query->where('area_id',$area)->orwhere('area_id',1);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('posts.index', compact('posts'));
     }
     /**

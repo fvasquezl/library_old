@@ -1,6 +1,6 @@
 <?php
 Route::resource('areas','Admin\AreasController');
-Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents');
+Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents')->name('level_parents');
 
 Route::resource('users','Admin\UsersController')->except('create');;
 Route::resource('posts','Admin\PostsController')->except('create');
@@ -11,4 +11,6 @@ Route::post('posts/{post}/document', 'Admin\DocumentsController@store')->name('p
 Route::delete('documents/{document}','Admin\DocumentsController@destroy')->name('documents.destroy');
 
 
-Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents');
+//Route::get('level_parents/{id}', 'Admin\AreasController@getLevelParents');
+
+Route::get('/', 'Admin\AdminController@index')->name('dashboard');

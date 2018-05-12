@@ -2,7 +2,7 @@
 @section ('header')
     <h1>AREA <small>{{$area->name}}</small></h1>
     <ol class="breadcrumb">
-        <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
+        <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Admin</a></li>
         <li class="active">Areas</li>
         <li class="active">Edit</li>
     </ol>

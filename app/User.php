@@ -54,7 +54,7 @@ class User extends Authenticatable
     public function areas()
     {
         return $this
-            ->belongsToMany(Area::class)->withPivot('area_id', 'user_id');
+            ->belongsToMany(Area::class);
     }
 
     public function posts()

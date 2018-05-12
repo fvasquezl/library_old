@@ -1,8 +1,8 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">Navegaci&oacute;n</li>
     <!-- Optionally, you can add icons to the links -->
-    <li {{request()->is('home') ? 'class=active' : ''}}>
-        <a href="{{route('home')}}"><i class="fa fa-home">
+    <li {{request()->is('admin') ? 'class=active' : ''}}>
+        <a href="{{route('admin.dashboard')}}"><i class="fa fa-home">
             </i> <span>Inicio</span></a>
     </li>
 

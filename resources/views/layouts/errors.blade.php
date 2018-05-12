@@ -43,9 +43,6 @@
                     <div class="col-md-8">
                         @yield('content')
                     </div>
-                    <div class="col-md-4">
-                        @include('layouts.partials.front.sidebar')
-                    </div>
                 </div>
             </section>
             <!-- /.content -->
