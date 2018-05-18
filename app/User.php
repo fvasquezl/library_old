@@ -51,10 +51,10 @@ class User extends Authenticatable
             ->belongsToMany(Role::class);
     }
 
-    public function areas()
+    public function area()
     {
         return $this
-            ->belongsToMany(Area::class);
+            ->belongsTo(Area::class);
     }
 
     public function posts()
@@ -65,7 +65,7 @@ class User extends Authenticatable
     public function hasLevel($level)
     {
         $user = auth()->user();
-        if( $user->areas->contains('level',$level) ){
+        if( $user->area->contains('level',$level) ){
             return true;
         }
         return false;
@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function getAreaName($user)
     {
-        return  $user->areas->pluck('code')->implode(', ');
+        return  $user->area->pluck('code')->implode(', ');
     }
 
     public function createPost(array $array)
@@ -81,6 +81,12 @@ class User extends Authenticatable
         $post = new Post($array);
         $this->posts()->save($post);
         return $post;
+    }
+
+    public function isAdmin()
+    {
+        if ($this->area->level ==1)
+            return true;
     }
 
 }

@@ -1,11 +1,13 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="header">Navegaci&oacute;n</li>
     <!-- Optionally, you can add icons to the links -->
+    <li><a href="{{route('posts.index')}}"><i class="fa fa-bookmark">
+            </i> <span>Pagina de Inicio</span></a>
+    </li>
     <li {{request()->is('admin') ? 'class=active' : ''}}>
         <a href="{{route('admin.dashboard')}}"><i class="fa fa-home">
-            </i> <span>Inicio</span></a>
+            </i> <span>Control Panel</span></a>
     </li>
-
     <li class="treeview {{request()->is('admin/areas') || request()->is('admin/users') ? 'active' : ''}}">
         <a href="#"><i class="fa fa-dashboard"></i> <span>Administracion</span>
             <span class="pull-right-container">

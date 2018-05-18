@@ -15,8 +15,15 @@ class CreateAreaPostTable extends Migration
     {
         Schema::create('area_post', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('area_id')->unsigned();
-            $table->integer('post_id')->unsigned();
+            $table->unsignedInteger('area_id');
+            $table->foreign('area_id')
+                ->references('id')
+                ->on('areas');
+            $table->unsignedInteger('post_id');
+            $table->foreign('post_id')
+                ->references('id')
+                ->on('posts');
+
         });
     }
 

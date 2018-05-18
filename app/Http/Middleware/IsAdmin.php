@@ -16,7 +16,8 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if( !$user->areas->contains('level',1) ){
+
+        if( !$user->area->level ==  1 ){
             abort(404);
         }
         return $next($request);

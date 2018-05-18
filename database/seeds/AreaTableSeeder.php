@@ -47,5 +47,12 @@ class AreaTableSeeder extends Seeder
         $area->parent_id = 2;
         $area->save();
 
+        $area=New Area();
+        $area->code = 'IT';
+        $area->name = 'Informatica';
+        $area->level = 3;
+        $area->parent_id = 4;
+        $area->save();
+
     }
 }

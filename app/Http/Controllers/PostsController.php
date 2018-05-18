@@ -17,29 +17,16 @@ class PostsController extends Controller
      */
     public function index()
     {
-
-        //Un post para un departamento de nivel inferior debe poder ser visto por todos sus
-        //padres
-        $areas = auth()->user()->areas;
-        //$parents ='';
-
-        foreach($areas as $area){
-          $parents[] = implode(',',$area->parents->where('id','!=',1)->pluck('id')->toArray());
-        }
-
-
-
-
-       return $parents;
-    //    return array_splice($parents, -1);
-
-        $posts = Post::with('areas')
-            ->whereHas('areas',function($query) use ($area){
-            $query->where('area_id',$area)->orwhere('area_id',1);
-            })
-            ->orderBy('created_at', 'desc')
+        $area = auth()->user()->area;
+        $areas = array_prepend($area->getAllChildrenFromArea($area),'1');
+        $posts = Post::query()
+            ->with('areas','owner','categories')
+            ->unless(auth()->user()->isAdmin(),function ($q) use ($areas){
+                    $q->whereHas('areas',function ($q1) use ($areas){
+                    $q1->whereIn('area_id',$areas);
+                });
+            })->orderBy('created_at', 'desc')
             ->get();
-
         return view('posts.index', compact('posts'));
     }
     /**

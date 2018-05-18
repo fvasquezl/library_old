@@ -21,7 +21,7 @@
             <div class="box-header with-border">
                 <div class="user-block">
                     <img class="img-circle" src="/adminlte/img/avatar5.png" alt="User Image">
-                    <span class="username"><a href="#">{{$post->user->name}}</a></span>
+                    <span class="username"><a href="#">{{$post->owner->name}}</a></span>
                     <span class="description">Publicacion compartida -  <span class="glyphicon glyphicon-time"></span> {{$post->published_at->toDayDateTimeString()}}</span>
                 </div>
                 <div class="box-tools pull-right">

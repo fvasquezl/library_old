@@ -17,7 +17,7 @@ class Area extends Model
     public function users()
     {
         return $this
-            ->belongsToMany(User::class);
+            ->hasMany(User::class);
     }
 
     public function posts()
@@ -89,6 +89,21 @@ class Area extends Model
         }
 
         return $parents;
+    }
+
+
+    public function getAllChildrenFromArea($area)
+    {
+        $area_arr[]= $area->id;
+        $areas = $area->children;
+
+        foreach ($areas as $area)
+        {
+            if (is_array($area) || is_object($area)) {
+                $area_arr[] = $this->getAllChildrenFromArea($area);
+            }
+        }
+        return array_flatten($area_arr);
     }
 
 }

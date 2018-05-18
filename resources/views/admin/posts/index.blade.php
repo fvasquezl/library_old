@@ -37,7 +37,7 @@
                         <td>{{$post->id}}</td>
                         <td><a href="{{route('admin.posts.show',$post->url)}}">{{str_limit($post->title,50)}}</a></td>
                         <td>{{strip_tags(str_limit($post->excerpt,50))}}</td>
-                        <td>{{$post->user->name}}</td>
+                        <td>{{$post->owner->name}}</td>
                         <td>{{$post->published_at}}</td>
                         <td>
                             <a href="{{route('posts.show',$post)}}"
