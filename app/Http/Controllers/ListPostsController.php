@@ -6,20 +6,32 @@ use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 
-class ListPostController extends Controller
+class ListPostsController extends Controller
 {
     public function __invoke(Category $category= null, Request $request)
     {
-        list($orderColumn,$orderDirection) = $this->getListOrder($request->get('orden'));
         $posts = Post::query()
-            ->with(['user','category'])
-            ->fromCategory($category)
+            ->with('areas','owner','categories')
+            ->fromAreas()
             ->fromSearch($request->get('search'))
-            ->scopes($this->getRouteScope($request))
-            ->orderBy($orderColumn, $orderDirection)
-            ->paginate()
-            ->appends(array_filter($request->only(['orden'])));
-        return view('posts.index', compact('posts', 'category'));
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('posts.index', compact('posts'));
+
+
+
+
+       // list($orderColumn,$orderDirection) = $this->getListOrder($request->get('orden'));
+//        $posts = Post::query()
+//            ->with(['user','category'])
+//            ->fromCategory($category)
+//            ->fromSearch($request->get('search'))
+//            ->scopes($this->getRouteScope($request))
+//           // ->orderBy($orderColumn, $orderDirection)
+//            ->paginate()
+//            ->appends(array_filter($request->only(['orden'])));
+//        return view('posts.index', compact('posts', 'category'));
     }
     protected function getRouteScope(Request $request)
     {

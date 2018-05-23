@@ -23,11 +23,13 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left"
-                      method="GET"
-                      action="{{ route('posts.index') }}" role="search">
+                <form class="navbar-form navbar-left"  method="GET" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                        <input type="text"
+                               class="form-control"
+                               name="search"
+                               value = "{{ request()->search }}"
+                               placeholder="Buscar">
                     </div>
                     <button type="submit" class="btn btn-danger ">Ordenar</button>
                 </form>

@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -46,6 +47,31 @@ class Post extends Model
     {
         $query->where('published_at','<=',Carbon::now())
             ->latest('published_at');
+    }
+
+    public function scopeFromSearch($query,string $search=null)
+    {
+        if ($search) {
+            $searchItems = array_map('strval', explode(' ', $search));
+            $query->where(function ($q) use ($searchItems){
+                foreach ($searchItems as $item){
+                    $q->orWhere(DB::raw("CONCAT(`title`,' ',`excerpt`)"),'LIKE',"%$item%");
+                }
+            });
+
+        }
+    }
+
+    public function scopeFromAreas($query=null)
+    {
+        $area = auth()->user()->area;
+        $areas = array_prepend($area->getAllChildrenFromArea($area),1);
+
+        $query->unless(auth()->user()->isAdmin(),function ($q) use ($areas){
+            $q->whereHas('areas',function ($q1) use ($areas){
+            $q1->whereIn('area_id',$areas);
+            });
+        });
     }
 
 

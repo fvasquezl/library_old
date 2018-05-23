@@ -17,7 +17,7 @@ class IsAdmin
     {
         $user = auth()->user();
 
-        if( !$user->area->level ==  1 ){
+        if( $user->area->level !=  1 ){
             abort(404);
         }
         return $next($request);
