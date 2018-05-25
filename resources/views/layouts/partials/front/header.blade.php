@@ -23,15 +23,16 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left"  method="GET" role="search">
+                <form class="navbar-form navbar-left" action="{{route('posts.index')}}" method="GET" role="search">
                     <div class="form-group">
-                        <input type="text"
+                        <input type="search"
                                class="form-control"
                                name="search"
                                value = "{{ request()->search }}"
                                placeholder="Buscar">
                     </div>
                     <button type="submit" class="btn btn-danger ">Ordenar</button>
+                    <input type="reset" value="Reset">
                 </form>
             </div>
             <!-- /.navbar-collapse -->

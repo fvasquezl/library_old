@@ -39,14 +39,7 @@
            @yield('header')
             <!-- Main content -->
             <section class="content">
-                <div class="row">
-                    <div class="col-md-8">
-                        @yield('content')
-                    </div>
-                    <div class="col-md-4">
-                        @include('layouts.partials.front.sidebar')
-                    </div>
-                </div>
+                @yield('content')
             </section>
             <!-- /.content -->
         </div>

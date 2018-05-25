@@ -51,7 +51,7 @@ class Post extends Model
 
     public function scopeFromSearch($query,string $search=null)
     {
-        if ($search) {
+        if (trim ($search !='')) {
             $searchItems = array_map('strval', explode(' ', $search));
             $query->where(function ($q) use ($searchItems){
                 foreach ($searchItems as $item){

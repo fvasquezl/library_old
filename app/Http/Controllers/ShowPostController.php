@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Post;
+
 class ShowPostController extends Controller
 {
-    public function __invoke(Post $post, $url)
+    public function __invoke(Post $post)
     {
-        if($post->slug != $url){
-            return redirect($post->url,301);
-        }
-        return view('posts.show',compact('$post'));
+        return view('posts.show',compact('post'));
     }
 }
