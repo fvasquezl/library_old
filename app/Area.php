@@ -92,7 +92,7 @@ class Area extends Model
     }
 
 
-    public function getAllChildrenFromArea($area)
+    public static function getAllChildrenFromArea($area)
     {
         $area_arr[]= $area->id;
         $areas = $area->children;
@@ -100,10 +100,12 @@ class Area extends Model
         foreach ($areas as $area)
         {
             if (is_array($area) || is_object($area)) {
-                $area_arr[] = $this->getAllChildrenFromArea($area);
+                $area_arr[] = self::getAllChildrenFromArea($area);
             }
         }
         return array_flatten($area_arr);
     }
+
+
 
 }

@@ -1,3 +1,5 @@
+{{--{{$posts->take(5)}}--}}
+
 <div class="well text-center">
     <p class="lead">
         Don't want to miss updates? Please click the below button!
@@ -18,62 +20,28 @@
     <!-- /.box-header -->
     <div class="box-body">
         <ul class="products-list product-list-in-box">
-            <li class="item">
-                <div class="product-img">
-                    <img src="/adminlte/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Samsung TV
-                        <span class="label label-warning pull-right">$1800</span></a>
-                    <span class="product-description">
-                          Samsung 32" 1080p 60Hz LED Smart HDTV.
+            @foreach($posts->take(5) as $post)
+                <li class="item">
+                    <div class="product-img">
+                        <a href="#"><i class="fa fa-check-circle fa-3x text-green"></i></a>
+                        {{--<img src="/adminlte/img/pdf-check.png" alt="Product Image">--}}
+                    </div>
+                    <div class="product-info">
+                        <a href="{{route('posts.show',$post)}}">
+                            {{str_limit( $post->title ,20,'...') }}
+                            <span class="label label-warning pull-right">{{$post->published_at->toDateString()}}</span>
+                        </a>
+                        <span class="product-description">
+                          {{str_limit( strip_tags($post->excerpt) ,30,'...') }}
                         </span>
-                </div>
-            </li>
-            <!-- /.item -->
-            <li class="item">
-                <div class="product-img">
-                    <img src="/adminlte/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Bicycle
-                        <span class="label label-info pull-right">$700</span></a>
-                    <span class="product-description">
-                          26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                        </span>
-                </div>
-            </li>
-            <!-- /.item -->
-            <li class="item">
-                <div class="product-img">
-                    <img src="/adminlte/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">Xbox One <span class="label label-danger pull-right">$350</span></a>
-                    <span class="product-description">
-                          Xbox One Console Bundle with Halo Master Chief Collection.
-                        </span>
-                </div>
-            </li>
-            <!-- /.item -->
-            <li class="item">
-                <div class="product-img">
-                    <img src="/adminlte/img/default-50x50.gif" alt="Product Image">
-                </div>
-                <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title">PlayStation 4
-                        <span class="label label-success pull-right">$399</span></a>
-                    <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                </div>
-            </li>
-            <!-- /.item -->
+                    </div>
+                </li>
+            @endforeach
         </ul>
     </div>
     <!-- /.box-body -->
     <div class="box-footer text-center">
-        <a href="javascript:void(0)" class="uppercase">View All Products</a>
+        <a href="{{route('posts.index')}}" class="uppercase">Ver todos los Productos</a>
     </div>
     <!-- /.box-footer -->
 </div>
@@ -90,13 +58,11 @@
         </div>
         <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
+                @foreach( $categories as $category)
+
+                <li><a href="#"><i class="fa fa-clipboard"></i> {{$category->name}}
                         <span class="label label-primary pull-right">12</span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a>
-                </li>
-                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                @endforeach
             </ul>
         </div>
         <!-- /.box-body -->
@@ -113,9 +79,11 @@
         </div>
         <div class="box-body no-padding">
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
+                @foreach( $areas as $area)
+                <li><a href="#"><i class="fa fa-circle-o text-red"></i> {{$area->name}}
+                    <span class="label label-primary pull-right">{{$area->posts->count()}}</span></a></li>
+                @endforeach
+
             </ul>
         </div>
         <!-- /.box-body -->

@@ -89,7 +89,7 @@
                 </div>
 
             @endforeach
-
+                {{ $posts->links() }}
             <ul class="pager">
                 <li class="previous"><a href="#">&larr; Previous</a></li>
                 <li class="next"><a href="#">Next &rarr;</a></li>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="col-md-4">
-            @include('layouts.partials.front.sidebar', $posts)
+            @include('layouts.partials.front.sidebar')
         </div>
     </div>
 

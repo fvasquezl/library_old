@@ -46,6 +46,7 @@ class Post extends Model
     public function scopePublished($query)
     {
         $query->where('published_at','<=',Carbon::now())
+            ->where('published_at','!=',null)
             ->latest('published_at');
     }
 

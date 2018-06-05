@@ -76,6 +76,7 @@ class User extends Authenticatable
         return  $user->area->pluck('code')->implode(', ');
     }
 
+
     public function createPost(array $array)
     {
         $post = new Post($array);
